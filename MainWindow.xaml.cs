@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Nophica.Properties;
 using SaintCoinach;
 using SaintCoinach.Graphics;
 using SaintCoinach.Graphics.Viewer;
@@ -49,7 +51,23 @@ namespace Nophica
         {
             InitializeComponent();
             realm = new ARealmReversed(GameDirectory, SaintCoinach.Ex.Language.English);
-            HavokInterop.InitializeMTA();
+
+            WindowPosition pos = WindowPosition.Load();
+            if (pos.MainWindowWidth > 0)
+                Width = pos.MainWindowWidth;
+            if (pos.MainWindowHeight > 0)
+                Height = pos.MainWindowHeight;
+            if (pos.MainWindowLeft > 0)
+                Left = pos.MainWindowLeft;
+            if (pos.MainWindowTop > 0)
+                Top = pos.MainWindowTop;
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+
+            new WindowPosition(Top, Left, Width, Height).Save();
         }
 
         private void loadButton_Click(object sender, RoutedEventArgs ea)
