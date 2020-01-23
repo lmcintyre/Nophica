@@ -3,11 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Nophica"
+        xmlns:viewmodels="clr-namespace:Nophica.ViewModels"
+        xmlns:views="clr-namespace:Nophica.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TabControl x:Name="windowTabs" Margin="0,0,0,0" Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
+    <Window.DataContext>
+        <viewmodels:MainViewModel />
+    </Window.DataContext>
+    
+
+    <DockPanel LastChildFill="True">
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Penis" />
+            </MenuItem>
+        </Menu>
+
+        <TabControl Margin="0,0,0,0" Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Debug">
                 <Grid Background="#FFE5E5E5">
                     <Button x:Name="button1" Content="Get Paths" HorizontalAlignment="Left" Margin="311,85,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
@@ -18,19 +31,15 @@
                     <Button x:Name="texButton" Content="Textures" HorizontalAlignment="Left" Margin="518,85,0,0" VerticalAlignment="Top" Width="75" Click="texButton_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Test UI">
-                <Grid Background="#FFE5E5E5">
-                    <Image HorizontalAlignment="Center" Margin="0 40 0 0" Height="auto" VerticalAlignment="Center" Width="auto" Source="C:\Users\Liam\Desktop\chara_export\vc.jpg"/>
-
-                    <Image x:Name="jobIcon" HorizontalAlignment="Center" Height="28" VerticalAlignment="Top" Width="28" Stretch="None" Margin="268,7,490,0"/>
-                    <ComboBox x:Name="jobDropDown" HorizontalAlignment="Center" Margin="40,10,0,0" VerticalAlignment="Top" Width="204"/>
-
-                    <Image x:Name="mainhandIcon" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="40" Stretch="None"/>
-                    <ComboBox x:Name="mainhandDropDown" HorizontalAlignment="Left" Margin="40,10,0,0" VerticalAlignment="Top" Width="204"/>
-                </Grid>
+            <TabItem Header="Gear Select" DataContext="{Binding EquipmentSelect}">
+                <views:EquipmentSelectView />
+            </TabItem>
+            <TabItem Header="Export" DataContext="{Binding Export}">
+                <views:ExportView />
             </TabItem>
         </TabControl>
+    </DockPanel>
 
 
-    </Grid>
+        
 </Window>

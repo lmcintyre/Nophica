@@ -17,6 +17,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Nophica.Properties;
+using Nophica.ViewModels;
 using SaintCoinach;
 using SaintCoinach.Graphics;
 using SaintCoinach.Graphics.Viewer;
@@ -49,8 +50,18 @@ namespace Nophica
 
         public MainWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                System.Diagnostics.Debug.WriteLine(ex.StackTrace);
+            }
+
             realm = new ARealmReversed(GameDirectory, SaintCoinach.Ex.Language.English);
+            // DataContext = new MainViewModel();
 
             WindowPosition pos = WindowPosition.Load();
             if (pos.MainWindowWidth > 0)
@@ -318,77 +329,77 @@ namespace Nophica
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs ea) {
 
-            string tabTitle = ((TabItem) windowTabs.SelectedItem).Header.ToString();
-
-            if (tabTitle != "Test UI")
-                return;
-
-            Equipment[] AllEquipment = realm.GameData.GetSheet<Item>().OfType<Equipment>()
-                        .Where(e => !e.EquipSlotCategory.PossibleSlots.Any(s => s.Key == 5 || s.Key == 13))
-                        .OrderBy(e => e.Name)
-                        .ToArray();
-
-            ObservableCollection<Equipment> mainhands = new ObservableCollection<Equipment>();
-            // Equipment[] mainhands = new Equipment[0];
-
-            var jobs = realm.GameData.GetSheet<ClassJob>().ToArray();
-            jobDropDown.ItemsSource = jobs;
-            jobDropDown.DisplayMemberPath = "Name";
-
-            jobDropDown.SelectionChanged += (o, args) => {
-                ClassJob cj = ((ClassJob) ((ComboBox) o).SelectedItem);
-
-                ImageFile imgFile = cj.Icon;
-                var tmp = ImageConverter.Convert(imgFile.GetData(), ImageFormat.A8R8G8B8_1, imgFile.Width, imgFile.Height);
-
-                using (var ms = new MemoryStream()) {
-                    tmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    ms.Position = 0;
-
-                    var bi = new BitmapImage();
-                    bi.BeginInit();
-                    bi.CacheOption = BitmapCacheOption.OnLoad;
-                    bi.StreamSource = ms;
-                    bi.EndInit();
-
-                    jobIcon.Source = bi;
-                }
-
-                mainhands.Clear();
-                AllEquipment
-                    .Where(e => e.EquipSlotCategory.PossibleSlots.All(s => s.Key == 0) && e.ClassJobCategory.ClassJobs.Contains(cj))
-                    .OrderBy(e => e.Name)
-                    .ToList()
-                    .ForEach(e => mainhands.Add(e));
-                // mainhandDropDown.ItemsSource = mainhands;
-                mainhandDropDown.GetBindingExpression(ComboBox.ItemsSourceProperty)?.UpdateTarget();
-            };
-
-            
-
-            // Equipment[] mainhands = AllEquipment.Where(e => e.EquipSlotCategory.PossibleSlots.All(s => s.Key == 0)).OrderBy(e => e.Name).ToArray();
-            mainhandDropDown.ItemsSource = mainhands;
-            mainhandDropDown.DisplayMemberPath = "Name";
-
-            mainhandDropDown.SelectionChanged += (o, args) => {
-                Equipment eq = ((Equipment) ((ComboBox) o).SelectedItem);
-                
-                ImageFile imgFile = eq.Icon;
-                var tmp = ImageConverter.Convert(imgFile.GetData(), ImageFormat.Dxt1, imgFile.Width, imgFile.Height);
-
-                using (var ms = new MemoryStream()) {
-                    tmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                    ms.Position = 0;
-
-                    var bi = new BitmapImage();
-                    bi.BeginInit();
-                    bi.CacheOption = BitmapCacheOption.OnLoad;
-                    bi.StreamSource = ms;
-                    bi.EndInit();
-
-                    mainhandIcon.Source = bi;
-                }
-            };
+            // string tabTitle = ((TabItem) windowTabs.SelectedItem).Header.ToString();
+            //
+            // if (tabTitle != "Test UI")
+            //     return;
+            //
+            // Equipment[] AllEquipment = realm.GameData.GetSheet<Item>().OfType<Equipment>()
+            //             .Where(e => !e.EquipSlotCategory.PossibleSlots.Any(s => s.Key == 5 || s.Key == 13))
+            //             .OrderBy(e => e.Name)
+            //             .ToArray();
+            //
+            // ObservableCollection<Equipment> mainhands = new ObservableCollection<Equipment>();
+            // // Equipment[] mainhands = new Equipment[0];
+            //
+            // var jobs = realm.GameData.GetSheet<ClassJob>().ToArray();
+            // jobDropDown.ItemsSource = jobs;
+            // jobDropDown.DisplayMemberPath = "Name";
+            //
+            // jobDropDown.SelectionChanged += (o, args) => {
+            //     ClassJob cj = ((ClassJob) ((ComboBox) o).SelectedItem);
+            //
+            //     ImageFile imgFile = cj.Icon;
+            //     var tmp = ImageConverter.Convert(imgFile.GetData(), ImageFormat.A8R8G8B8_1, imgFile.Width, imgFile.Height);
+            //
+            //     using (var ms = new MemoryStream()) {
+            //         tmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            //         ms.Position = 0;
+            //
+            //         var bi = new BitmapImage();
+            //         bi.BeginInit();
+            //         bi.CacheOption = BitmapCacheOption.OnLoad;
+            //         bi.StreamSource = ms;
+            //         bi.EndInit();
+            //
+            //         jobIcon.Source = bi;
+            //     }
+            //
+            //     mainhands.Clear();
+            //     AllEquipment
+            //         .Where(e => e.EquipSlotCategory.PossibleSlots.All(s => s.Key == 0) && e.ClassJobCategory.ClassJobs.Contains(cj))
+            //         .OrderBy(e => e.Name)
+            //         .ToList()
+            //         .ForEach(e => mainhands.Add(e));
+            //     // mainhandDropDown.ItemsSource = mainhands;
+            //     mainhandDropDown.GetBindingExpression(ComboBox.ItemsSourceProperty)?.UpdateTarget();
+            // };
+            //
+            //
+            //
+            // // Equipment[] mainhands = AllEquipment.Where(e => e.EquipSlotCategory.PossibleSlots.All(s => s.Key == 0)).OrderBy(e => e.Name).ToArray();
+            // mainhandDropDown.ItemsSource = mainhands;
+            // mainhandDropDown.DisplayMemberPath = "Name";
+            //
+            // mainhandDropDown.SelectionChanged += (o, args) => {
+            //     Equipment eq = ((Equipment) ((ComboBox) o).SelectedItem);
+            //     
+            //     ImageFile imgFile = eq.Icon;
+            //     var tmp = ImageConverter.Convert(imgFile.GetData(), ImageFormat.Dxt1, imgFile.Width, imgFile.Height);
+            //
+            //     using (var ms = new MemoryStream()) {
+            //         tmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            //         ms.Position = 0;
+            //
+            //         var bi = new BitmapImage();
+            //         bi.BeginInit();
+            //         bi.CacheOption = BitmapCacheOption.OnLoad;
+            //         bi.StreamSource = ms;
+            //         bi.EndInit();
+            //
+            //         mainhandIcon.Source = bi;
+            //     }
+            // };
 
             /*
              * System.Drawing.Image imgWinForms = System.Drawing.Image.FromFile("test.png");
