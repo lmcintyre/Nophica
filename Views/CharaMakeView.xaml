@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Nophica.Views.CharaMakeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Nophica.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>   
+            <ColumnDefinition Width="*"/>   
+            <ColumnDefinition Width="*"/>   
+            <ColumnDefinition Width="*"/>   
+        </Grid.ColumnDefinitions>
+
+        <ComboBox
+            ItemsSource="{Binding Path=Races}"
+            SelectedItem="{Binding Path=SelectedRace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Text="{Binding Path=SelectedRace.Masculine, Mode=OneWay, TargetNullValue='fuck'}"
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            MinWidth="75"
+            MaxWidth="175"/>
+
+        <ComboBox
+            ItemsSource="{Binding Path=Tribes}"
+            SelectedItem="{Binding Path=SelectedTribe, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            MinWidth="100"
+            MaxWidth="175"/>
+
+        <ComboBox
+            ItemsSource="{Binding Path=Sexes}"
+            SelectedItem="{Binding Path=SelectedSex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="0"
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            MinWidth="100"
+            MaxWidth="175"/>
+    </Grid>
+</UserControl>

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaintCoinach.Graphics.Viewe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nophica", "Nophica.csproj", "{394A785A-23C3-4599-A172-A66858B8A347}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nophica.Tests", "Nophica.Tests\Nophica.Tests.csproj", "{7C1923C4-1634-4735-9AE8-5B8E26B2607F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nophica.Examiner", "..\Nophica.Examiner\Nophica.Examiner.csproj", "{0172C26D-5007-4907-9AE7-241F2DB4932B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{394A785A-23C3-4599-A172-A66858B8A347}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{394A785A-23C3-4599-A172-A66858B8A347}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{394A785A-23C3-4599-A172-A66858B8A347}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C1923C4-1634-4735-9AE8-5B8E26B2607F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1923C4-1634-4735-9AE8-5B8E26B2607F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1923C4-1634-4735-9AE8-5B8E26B2607F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1923C4-1634-4735-9AE8-5B8E26B2607F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0172C26D-5007-4907-9AE7-241F2DB4932B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0172C26D-5007-4907-9AE7-241F2DB4932B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0172C26D-5007-4907-9AE7-241F2DB4932B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0172C26D-5007-4907-9AE7-241F2DB4932B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

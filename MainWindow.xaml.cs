@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -62,7 +63,7 @@ namespace Nophica
 
             realm = new ARealmReversed(GameDirectory, SaintCoinach.Ex.Language.English);
             // DataContext = new MainViewModel();
-
+            
             WindowPosition pos = WindowPosition.Load();
             if (pos.MainWindowWidth > 0)
                 Width = pos.MainWindowWidth;
@@ -156,7 +157,24 @@ namespace Nophica
         }
 
         private void exportButton_Click(object sender, RoutedEventArgs ea) {
-            testExport2();
+            testExport1();
+        }
+
+        private void testExport3() {
+            Model model = null;
+
+            string tmpSkel = "chara/monster/m0595/skeleton/base/b0001/skl_m0595b0001.sklb";
+            string tmpPap = "chara/monster/m0595/animation/a0001/bt_common/resident/mount.pap";
+
+            realm.Packs.TryGetFile(tmpSkel, out File sklb);
+            realm.Packs.TryGetFile(tmpPap, out File pap);
+
+            List<PapFile> papList = new List<PapFile>();
+            List<SklbFile> skeleList = new List<SklbFile>();
+            papList.Add(new PapFile(pap));
+            skeleList.Add(new SklbFile(sklb));
+
+            FbxExport.ExportFbx("mounttest.fbx", new List<Mesh>(), skeleList, papList);
         }
 
         private void testExport1() {
@@ -183,7 +201,7 @@ namespace Nophica
             //     outputBox.Text += e.Message + "\n";
             // }
 
-            FbxExport.ExportFbx("text.fbx", model.Meshes, skeleList, papList);
+            // FbxExport.ExportFbx("gaiuass.fbx", model.Meshes, skeleList, papList);
         }
 
         private void testExport2() {
@@ -202,8 +220,8 @@ namespace Nophica
             Skeleton forDebugging = new Skeleton(skeleList[0]);
 
             Mesh[] meshes = getPlayer();
-            int result = FbxExport.ExportFbx("text.fbx", meshes, skeleList, papList);
-            System.Diagnostics.Debug.WriteLine($"Export finished with result {result}");
+            // int result = FbxExport.ExportFbx("text.fbx", meshes, skeleList, papList);
+            // System.Diagnostics.Debug.WriteLine($"Export finished with result {result}");
         }
 
         private void texButton_Click(object sender, RoutedEventArgs e)

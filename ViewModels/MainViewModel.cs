@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Nophica.Annotations;
+using Nophica.Util;
 using SaintCoinach;
 using SaintCoinach.Ex;
 
@@ -27,6 +28,7 @@ namespace Nophica.ViewModels
         public ARealmReversed Realm { get; private set; }
         public EquipmentSelectViewModel EquipmentSelect { get; private set; }
         public ExportViewModel Export { get; private set; }
+        public CharaMakeViewModel CharaMake { get; private set; }
 
         public MainViewModel()
         {
@@ -40,10 +42,12 @@ namespace Nophica.ViewModels
         void Initialize(ARealmReversed realm)
         {
             realm.Packs.GetPack(new SaintCoinach.IO.PackIdentifier("exd", SaintCoinach.IO.PackIdentifier.DefaultExpansion, 0)).KeepInMemory = true;
-            
+            PathFormatter.Init(realm);
+
             Realm = realm;
             EquipmentSelect = new EquipmentSelectViewModel(this);
             Export = new ExportViewModel(this);
+            CharaMake = new CharaMakeViewModel(this);
         }
     }
 }
